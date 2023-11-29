@@ -1,9 +1,9 @@
-import pygame
+import pygame,sys,random
 
 pygame.init()
 
-funds = 100
-playerprice = 40
+funds = 1000
+playerprice = 4000
 
 a , b = 1200,673
 background_colour = (90, 200, 60)
@@ -20,6 +20,10 @@ color_passive = pygame.Color('chartreuse4')
 color = color_passive
 active = False
 
+start_time = pygame.time.get_ticks()  # Get the current time in milliseconds
+timer_duration = 5000  # Set the duration of the timer in milliseconds
+
+
 screen = pygame.display.set_mode((a, b))
 background = pygame.image.load('backdrop.jpg')
 bg2 = pygame.image.load("Soccer_pitch_dimensions.png")
@@ -30,6 +34,15 @@ bg4 = pygame.image.load("market1.jpg")
 pygame.display.set_caption('football unlimited')
 ok = pygame.image.load("WhatsApp Image 2023-11-30 at 1.16.35 AM.jpeg")
 i4bg = pygame.image.load("stadium-football-background-at-night-free-vector.jpg")
+c_main = pygame.image.load("cabj.jpg")
+c1 = pygame.image.load("roma.jpg")
+c2 = pygame.image.load("wolfsburg.jpg")
+
+#clubs for simulator
+A=[c_main,87,'MESSI','HAALAND','VINICIUS JR','HAIDARA','MCTOMINAY','BRUNO','SHAW','MAGUIRE','RAMOS','WALKER','DE GEA'] #my club
+B=[c1,78,'SALAH','KANE','SON','AMRABAT','BELLINGHAM','SAUL','PELLEGRINI','BAILLY','VARANE','TRENT ALEXANDER ARNOLD','STEELE']
+C=[c2,92,'MAHREZ','HOJLUND','RASHFORD','DIABY','CASEMIRO','RICE','BALDE','WESLEY FOFANA','ALABA','DALOT','TER STEGEN']
+
 
 screen.fill(background_colour)
 
@@ -65,6 +78,8 @@ def man(x,a,b):
     screen.blit(x,(a,b))
 running = True
 i = 0
+
+
 button = Button(a // 2 -110 , b // 2 + 200, 200, 50, (100, 190, 60), "PLAY")
 b1 = Button(a // 2 - 110, b // 2 + 100, 270, 50, (100, 60, 100), "TRANSFER MARKET")
 b2 = Button(a // 2 - 110, b // 2 - 100, 200, 50, (100, 60, 100), "FIXTURE")
@@ -72,17 +87,27 @@ b3 = Button(a // 2 - 110, b // 2, 200, 50, (100, 60, 100), "YOUR SQUAD")
 buy1 = Button(350 , 570, 150, 50, (100, 190, 100), "BUY")
 buy2 = Button(850 , 570, 150, 50, (100, 190, 100), "BUY")
 ok1 = Button(475 , 350, 150, 50, (100, 190, 100), "CONFIRM")
+sim = Button(a // 2 -110 , b // 2 , 200, 50, (100, 190, 60), "PLAY")
+
 a1 = 0
+a2=0
+rand_int =0
+rand2=0
+#my club
+
 
 #buy1 =
 while running:
-    if i > 1:
-        screen.blit(text_funds, textRect3)
+
+
     for event in pygame.event.get():
 
         # Check for QUIT event
         if event.type == pygame.QUIT:
             running = False
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
+                i = i - 1
 
         if event.type == pygame.MOUSEBUTTONDOWN:
             if button.is_clicked(pygame.mouse.get_pos()) and i==0:
@@ -109,6 +134,18 @@ while running:
 
             if ok1.is_clicked(pygame.mouse.get_pos()) and i == 3.1:
                 i = 3
+
+            if sim.is_clicked(pygame.mouse.get_pos()) and i==4:
+                # Code to switch to a new screen goes here
+                rand_int = random.randint(0, 10)
+                if A[2] >= B[2]:
+                    rand2 = random.randint(0, rand_int)
+                    funds = funds + 100
+                else:
+                    rand2 = random.randint(rand_int, 10)
+                i = 4
+                a2 = 1
+
 
     if i==0:
         screen.blit(background,(0,0))
@@ -147,16 +184,21 @@ while running:
         text_surface = base_font.render(user_text, True, (255, 255, 255))
         screen.blit(text_surface, (input_rect.x + 5, input_rect.y + 5))
         input_rect.w = max(100, text_surface.get_width() + 10)
-#
+
+
+#this is for transfer market
     if i==2:
+      screen.blit(text_funds, textRect3)
       screen.blit(bg3,(0,0))
+      screen.blit(text_funds, textRect3)
       b1.draw(screen)
       b2.draw(screen)
       b3.draw(screen)
 
     if i == 3:
+        screen.blit(text_funds, textRect3)
         screen.blit(background,(0,0))
-
+        screen.blit(text_funds, textRect3)
         if a1<=0:
           man(player,300,200)
           screen.blit(text_price1, textRect1)
@@ -169,12 +211,56 @@ while running:
                screen.blit(text_price2, textRect2)
 
     if i==3.1:
+         screen.blit(text_funds, textRect3)
          screen.blit(ok,(190,100))
          ok1.draw(screen)
 
+#this is for match simulator
     if i ==4:
-        screen.blit(i4bg,(0,0))
 
+        screen.blit(i4bg,(0,0))
+        screen.blit(text_funds, textRect3)
+        screen.blit(A[0],(300,100))
+        screen.blit(B[0],(800,100))
+        text4 = main_font.render("""V/S""", False, (200, 200, 200))
+        textRect4 = text4.get_rect()
+        textRect4.center = (a // 2, b // 2 - 200)
+        screen.blit(text4,textRect4)
+        if a2==0:
+            sim.draw(screen)
+        if a2==1:
+            text41 = main_font.render(str(rand_int), False, (200, 200, 200))
+            textRect41 = text41.get_rect()
+            textRect41.center = (350, 300)
+            screen.blit(text41, textRect41)
+            text42 = main_font.render(str(rand2), False, (200, 200, 200))
+            textRect42 = text42.get_rect()
+            textRect42.center = (850, 300)
+            screen.blit(text42, textRect42)
+
+
+
+
+    """""
+        
+        # Calculate elapsed time
+            current_time = pygame.time.get_ticks()
+            elapsed_time = current_time - start_time
+
+        # Clear the screen
+
+        # Display the timer value on the screen
+            timer_text = main_font.render(f"Time: {elapsed_time / 1000:.2f}s", True, (10,10,10))
+            screen.blit(timer_text, (a//2, b//2))
+
+        # Check if the timer has reached its duration
+            if elapsed_time >= timer_duration:
+                print("Timer reached!")
+            # You can add code here to perform actions when the timer reaches its duration
+            # For example, reset the timer for a countdown effect
+                start_time = pygame.time.get_ticks()
+
+    """
 
     pygame.display.update()
     clock.tick(30)

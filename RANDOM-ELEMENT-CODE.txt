@@ -1,0 +1,4 @@
+import random
+a=[87,'MESSI','HAALAND','VINICIUS JR','HAIDARA','MCTOMINAY','BRUNO','SHAW','MAGUIRE','RAMOS','WALKER','DE GEA']
+b=random.choice(a)
+print(b)
