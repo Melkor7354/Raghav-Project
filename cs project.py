@@ -9,6 +9,7 @@ main_font = pygame.font.Font(None, 50)
 
 
 base_font = pygame.font.Font(None, 32)
+
 user_text = ''
 input_rect = pygame.Rect(a/2, b/2, 140, 32)
 color_active = pygame.Color('lightskyblue3')
