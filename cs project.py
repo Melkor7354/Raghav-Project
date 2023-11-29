@@ -33,6 +33,7 @@ class Button:
         self.text = text
         self.font = pygame.font.Font(None, 36)
 
+
     def draw(self, screen):
         pygame.draw.rect(screen, self.color, self.rect)
         text = self.font.render(self.text, True, (200,200,200))
