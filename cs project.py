@@ -50,6 +50,7 @@ button = Button(a // 2 -110 , b // 2 + 200, 200, 50, (100, 190, 60), "PLAY")
 b1 = Button(a // 2 - 110, b // 2 + 100, 270, 50, (100, 60, 100), "TRANSFER MARKET")
 b2 = Button(a // 2 - 110, b // 2 - 100, 200, 50, (100, 60, 100), "YOUR SQUAD")
 b3 = Button(a // 2 - 110, b // 2, 200, 50, (100, 60, 100), "YOUR RESULTS")
+buy1 = Button(300 , 500, 200, 50, (100, 190, 100), "BUY")
 #buy1 =
 while running:
 
@@ -120,7 +121,7 @@ while running:
     if i == 3:
      screen.blit(background,(0,0))
      man(300,200)
-
+     buy1.draw(screen)
      man(800,200)
 
 
