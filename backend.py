@@ -41,6 +41,11 @@ class Player:
             pickle.dump(self, file)
 
 
+def Squad(list):
+    def __init__(self)
+        list.__init__(self)
+
+
 
 
 
