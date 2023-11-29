@@ -116,7 +116,7 @@ while running:
       b3.draw(screen)
 
     if i == 3:
-     screen.blit(bg4,(0,0))
+     screen.blit(background,(0,0))
      man(300,200)
 
      man(800,200)
