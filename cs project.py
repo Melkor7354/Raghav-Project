@@ -2,6 +2,9 @@ import pygame
 
 pygame.init()
 
+funds = 100
+playerprice = 40
+
 a , b = 1200,673
 background_colour = (90, 200, 60)
 clock = pygame.time.Clock()
@@ -22,9 +25,18 @@ background = pygame.image.load('backdrop.jpg')
 bg2 = pygame.image.load("Soccer_pitch_dimensions.png")
 bg3 = pygame.image.load("pngtree-background-with-a-football-or-soccer-ball-on-grass-with-spotlight-picture-image_2032894.jpg")
 player = pygame.image.load("kdb1.jpg")
+p2 = pygame.image.load("mbp.jpg")
 bg4 = pygame.image.load("market1.jpg")
 pygame.display.set_caption('football unlimited')
 screen.fill(background_colour)
+
+text_price1 = main_font.render(str(playerprice), True, (20,20,20))
+text_price2 = main_font.render(str(playerprice), True, (20,20,20))
+textRect1 = text_price1.get_rect()
+textRect2 = text_price2.get_rect()
+textRect1.center = (390,520)
+textRect2.center = (890,520)
+
 
 class Button:
 
@@ -43,15 +55,20 @@ class Button:
 
     def is_clicked(self, pos):
         return self.rect.collidepoint(pos)
-def man(a,b):
-    screen.blit(player,(a,b))
+def man(x,a,b):
+    screen.blit(x,(a,b))
 running = True
 i = 0
 button = Button(a // 2 -110 , b // 2 + 200, 200, 50, (100, 190, 60), "PLAY")
 b1 = Button(a // 2 - 110, b // 2 + 100, 270, 50, (100, 60, 100), "TRANSFER MARKET")
 b2 = Button(a // 2 - 110, b // 2 - 100, 200, 50, (100, 60, 100), "YOUR SQUAD")
 b3 = Button(a // 2 - 110, b // 2, 200, 50, (100, 60, 100), "YOUR RESULTS")
-buy1 = Button(300 , 500, 200, 50, (100, 190, 100), "BUY")
+buy1 = Button(350 , 570, 150, 50, (100, 190, 100), "BUY")
+buy2 = Button(850 , 570, 150, 50, (100, 190, 100), "BUY")
+ok = Button(600 , 570, 150, 50, (100, 190, 100), "CONFIRM")
+
+a1 = 0
+
 #buy1 =
 while running:
 
@@ -74,6 +91,15 @@ while running:
             if b1.is_clicked(pygame.mouse.get_pos()) and i==2:
                 # Code to switch to a new screen goes here
                 i = 3
+            if buy1.is_clicked(pygame.mouse.get_pos()) and i == 3 and playerprice <= funds:
+                # Code to switch to a new screen goes here
+                i=4
+                a1 =1
+
+            if buy2.is_clicked(pygame.mouse.get_pos()) and i==3 and playerprice <= funds:
+                # Code to switch to a new screen goes here
+                i=5
+                a1 =-1
 
     if i==0:
         screen.blit(background,(0,0))
@@ -121,12 +147,21 @@ while running:
 
     if i == 3:
      screen.blit(background,(0,0))
-     man(300,200)
-     buy1.draw(screen)
-     man(800,200)
 
+     if a1<=0:
+      man(player,300,200)
+      screen.blit(text_price1, textRect1)
+      buy1.draw(screen)
 
+     if a1>=0:
 
+      man(p2,800,200)
+      buy2.draw(screen)
+      screen.blit(text_price2, textRect2)
+
+     if i ==4 or i==5:
+         screen.blit(,())
+         ok.draw(screen)
 
     pygame.display.update()
     clock.tick(30)
