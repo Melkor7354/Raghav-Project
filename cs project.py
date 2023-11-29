@@ -2,7 +2,7 @@ import pygame
 
 pygame.init()
 
-a,b=1200,673
+a , b = 1200,673
 background_colour = (90, 200, 60)
 clock = pygame.time.Clock()
 main_font = pygame.font.Font(None, 50)
@@ -21,7 +21,7 @@ screen = pygame.display.set_mode((a, b))
 background = pygame.image.load('backdrop.jpg')
 bg2 = pygame.image.load("Soccer_pitch_dimensions.png")
 bg3 = pygame.image.load("pngtree-background-with-a-football-or-soccer-ball-on-grass-with-spotlight-picture-image_2032894.jpg")
-player = pygame.image.load("man1.png")
+player = pygame.image.load("kdb1.jpg")
 bg4 = pygame.image.load("market1.jpg")
 pygame.display.set_caption('football unlimited')
 screen.fill(background_colour)
