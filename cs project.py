@@ -1,4 +1,4 @@
-import pygame, sqlite
+import pygame, sqlite3
 
 pygame.init()
 
