@@ -29,6 +29,8 @@ p2 = pygame.image.load("mbp.jpg")
 bg4 = pygame.image.load("market1.jpg")
 pygame.display.set_caption('football unlimited')
 ok = pygame.image.load("WhatsApp Image 2023-11-30 at 1.16.35 AM.jpeg")
+i4bg = pygame.image.load("stadium-football-background-at-night-free-vector.jpg")
+
 screen.fill(background_colour)
 
 text_funds = main_font.render(str(funds), True, (20,20,20))
@@ -65,8 +67,8 @@ running = True
 i = 0
 button = Button(a // 2 -110 , b // 2 + 200, 200, 50, (100, 190, 60), "PLAY")
 b1 = Button(a // 2 - 110, b // 2 + 100, 270, 50, (100, 60, 100), "TRANSFER MARKET")
-b2 = Button(a // 2 - 110, b // 2 - 100, 200, 50, (100, 60, 100), "YOUR SQUAD")
-b3 = Button(a // 2 - 110, b // 2, 200, 50, (100, 60, 100), "YOUR RESULTS")
+b2 = Button(a // 2 - 110, b // 2 - 100, 200, 50, (100, 60, 100), "FIXTURE")
+b3 = Button(a // 2 - 110, b // 2, 200, 50, (100, 60, 100), "YOUR SQUAD")
 buy1 = Button(350 , 570, 150, 50, (100, 190, 100), "BUY")
 buy2 = Button(850 , 570, 150, 50, (100, 190, 100), "BUY")
 ok1 = Button(475 , 350, 150, 50, (100, 190, 100), "CONFIRM")
@@ -169,6 +171,10 @@ while running:
     if i==3.1:
          screen.blit(ok,(190,100))
          ok1.draw(screen)
+
+    if i ==4:
+        screen.blit(i4bg,(0,0))
+
 
     pygame.display.update()
     clock.tick(30)
