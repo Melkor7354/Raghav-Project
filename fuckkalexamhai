@@ -1,0 +1,4 @@
+
+random_matrix_array = numpy.random.rand(3)
+
+print(random_matrix_array)
