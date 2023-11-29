@@ -15,6 +15,11 @@ def convert_images_to_binary(image_file_paths):
         f.close()
     return binary_cards
 
+
+def check_player_in_squad(players):
+
+
+
 def initialize():
     if os.path.exists(user_path+'/football_game'):
         pass
@@ -22,6 +27,7 @@ def initialize():
         mode = 0o666
         os.mkdir(path1, mode=mode)
         os.mkdir(path2, mode=mode)
+
 
 
 class Player:
@@ -37,13 +43,14 @@ class Player:
         return [self.name, self.position, self.ovr, self.club, self.country, self.image]
 
     def save(self):
-        with open('{}'.format(self.name), 'wb') as file:
+        with open(path1+'{}'.format(self.name), 'wb') as file:
             pickle.dump(self, file)
 
 
 def Squad(list):
-    def __init__(self)
+    def __init__(self):
         list.__init__(self)
+
 
 
 
