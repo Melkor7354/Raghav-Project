@@ -26,6 +26,7 @@ pygame.display.set_caption('football unlimited')
 screen.fill(background_colour)
 
 class Button:
+
     def __init__(self, x, y, width, height, color, text):
         self.rect = pygame.Rect(x, y, width, height)
         self.color = color
