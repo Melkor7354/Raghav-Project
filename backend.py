@@ -2,17 +2,16 @@ import pickle
 import os
 import random
 
-player_base = [['Lionel Messi', 'RW', 93, 'Inter Miami', 'Argentina']]
+player_base = [['Messi', 'RW', 93]]
 user_path = os.path.expanduser('~')
-path_main = user_path+'/football_game'
-path1 = path_main+'/players'
-path2 = path_main+'/squad'
+path_main = user_path+'\\football_game'
+path1 = path_main+'\\players'
+path2 = path_main+'\\squad'
 
 
 def convert_images_to_binary(image_file_path):
-    binary_card = ''
     f = open(image_file_path, 'rb')
-    binary_card += f.read()
+    binary_card = f.read()
     f.close()
     return binary_card
 
@@ -31,8 +30,9 @@ def initialize():
         midfielders = []
         gk = []
         for player in player_base:
-            image = convert_images_to_binary(user_path+'/cards/{}.jpeg'.format(player[0]))
-            a = Player(player[0], player[1], player[2], player[3], player[4], image)
+            image = convert_images_to_binary(user_path+'\\cards\\{}.png'.format(player[0]))
+            a = Player(player[0], player[1], player[2], image)
+            print(a)
             a.save()
             players.append(a)
             if a.position in ('GK'):
@@ -52,23 +52,24 @@ def initialize():
         g = random.sample(goal, 1)
         for i in [f, m, d, g]:
             for j in i:
-                s.append()
+                s.append(j)
+        s.save()
+
+        random_initial_squad(forwards, defenders, midfielders, gk)
 
 
 class Player:
-    def __init__(self, name, position, ovr, club, country, image):
+    def __init__(self, name, position, ovr, image):
         self.name = name
         self.position = position
         self.ovr = ovr
-        self.club = club
-        self.country = country
         self.image = image
 
     def player_info(self):
-        return [self.name, self.position, self.ovr, self.club, self.country, self.image]
+        return [self.name, self.position, self.ovr, self.image]
 
     def save(self):
-        with open(path1+'{}'.format(self.name), 'wb') as file:
+        with open(path1+'\\{}'.format(self.name), 'wb') as file:
             pickle.dump(self, file)
 
 
@@ -105,9 +106,7 @@ class Squad(list):
         with open(path2+'squad', 'wb') as file:
             pickle.dump(self, file)
 
-
-a = Player('Lionel Messi', 'RW', 93, 'Inter Miami', 'Argentina', 'A')
-a.save()
+initialize()
 
 
 
