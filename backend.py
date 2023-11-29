@@ -3,9 +3,8 @@ import os
 
 player_base = [['Lionel Messi', 'RW', 93, 'Inter Miami', 'Argentina'], []]
 user_path = os.path.expanduser('~')
-path1 = user_path+'/cards'
-path2 = user_path+'/players'
-path3 = user_path+'/squad'
+path1 = user_path+'/players'
+path2 = user_path+'/squad'
 
 
 def convert_images_to_binary(image_file_paths):
@@ -16,6 +15,11 @@ def convert_images_to_binary(image_file_paths):
         f.close()
     return binary_cards
 
+
+def check_player_in_squad(players):
+
+
+
 def initialize():
     if os.path.exists(user_path+'/football_game'):
         pass
@@ -23,7 +27,8 @@ def initialize():
         mode = 0o666
         os.mkdir(path1, mode=mode)
         os.mkdir(path2, mode=mode)
-        os.mkdir(path3, mode=mode)
+
+
 
 class Player:
     def __init__(self, name, position, ovr, club, country, image):
@@ -38,11 +43,16 @@ class Player:
         return [self.name, self.position, self.ovr, self.club, self.country, self.image]
 
     def save(self):
-        with open('{}'.format(self.name), 'wb') as file:
+        with open(path1+'{}'.format(self.name), 'wb') as file:
             pickle.dump(self, file)
 
 
-initialize()
+def Squad(list):
+    def __init__(self):
+        list.__init__(self)
+
+
+
 
 
 
