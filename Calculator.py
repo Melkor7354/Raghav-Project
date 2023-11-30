@@ -2,7 +2,7 @@ import pygame,sys,random
 
 pygame.init()
 
-funds = 1000
+funds = 10000
 playerprice = 4000
 
 a , b = 1200,673
@@ -76,6 +76,11 @@ class Button:
         return self.rect.collidepoint(pos)
 def man(x,a,b):
     screen.blit(x,(a,b))
+    
+def back(o):
+    if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    o = o-1 
 running = True
 i = 0
 
@@ -93,6 +98,9 @@ a1 = 0
 a2=0
 rand_int =0
 rand2=0
+y = 0
+r = 0
+t = 0
 #my club
 
 
@@ -105,9 +113,7 @@ while running:
         # Check for QUIT event
         if event.type == pygame.QUIT:
             running = False
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_ESCAPE:
-                i = i - 1
+        
 
         if event.type == pygame.MOUSEBUTTONDOWN:
             if button.is_clicked(pygame.mouse.get_pos()) and i==0:
@@ -115,35 +121,38 @@ while running:
                 i = 1
             if b3.is_clicked(pygame.mouse.get_pos()) and i==2:
                 # Code to switch to a new screen goes here
-                i = 5
+                i=3
+                t = 1
             if b2.is_clicked(pygame.mouse.get_pos()) and i==2:
                 # Code to switch to a new screen goes here
-                i = 4
+                r=1
+                i=3
             if b1.is_clicked(pygame.mouse.get_pos()) and i==2:
                 # Code to switch to a new screen goes here
-                i = 3
-            if buy1.is_clicked(pygame.mouse.get_pos()) and i==3 and playerprice <= funds:
+                y =1
+                i=3
+            if buy1.is_clicked(pygame.mouse.get_pos()) and i==3 and y ==1 and playerprice <= funds:
                 funds = funds - playerprice
-                i = 3.1
+                i =3
+                y=2
                 a1 =1
 
-            if buy2.is_clicked(pygame.mouse.get_pos()) and i==3 and playerprice <= funds:
+            if buy2.is_clicked(pygame.mouse.get_pos()) and i==3 and y==1 and playerprice <= funds:
                 funds = funds - playerprice
-                i = 3.1
+                y =2
                 a1 = -1
 
-            if ok1.is_clicked(pygame.mouse.get_pos()) and i == 3.1:
-                i = 3
+            if ok1.is_clicked(pygame.mouse.get_pos()) and i == 3 and  y ==2:
+                y = 1
 
-            if sim.is_clicked(pygame.mouse.get_pos()) and i==4:
+            if sim.is_clicked(pygame.mouse.get_pos()) and i==3  and r ==1:
                 # Code to switch to a new screen goes here
                 rand_int = random.randint(0, 10)
-                if A[2] >= B[2]:
+                if A[1] >= B[1]:
                     rand2 = random.randint(0, rand_int)
                     funds = funds + 100
                 else:
                     rand2 = random.randint(rand_int, 10)
-                i = 4
                 a2 = 1
 
 
@@ -157,7 +166,7 @@ while running:
 
 #
     if i==1:
-
+        back(i)
         screen.blit(bg2,(0,0))
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONDOWN:
@@ -188,6 +197,8 @@ while running:
 
 #this is for transfer market
     if i==2:
+      back(i)
+     
       screen.blit(text_funds, textRect3)
       screen.blit(bg3,(0,0))
       screen.blit(text_funds, textRect3)
@@ -195,7 +206,8 @@ while running:
       b2.draw(screen)
       b3.draw(screen)
 
-    if i == 3:
+    if i==3 and t==1:
+        back(i)
         screen.blit(text_funds, textRect3)
         screen.blit(background,(0,0))
         screen.blit(text_funds, textRect3)
@@ -210,14 +222,16 @@ while running:
                buy2.draw(screen)
                screen.blit(text_price2, textRect2)
 
-    if i==3.1:
+    if i==3 and t==2:
+        
          screen.blit(text_funds, textRect3)
          screen.blit(ok,(190,100))
          ok1.draw(screen)
 
 #this is for match simulator
-    if i ==4:
-
+    if i==3 and r==1:
+        back(i)  
+     
         screen.blit(i4bg,(0,0))
         screen.blit(text_funds, textRect3)
         screen.blit(A[0],(300,100))
