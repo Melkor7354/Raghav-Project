@@ -1,11 +1,11 @@
-import pygame,sys,random
+import pygame,random
 
 pygame.init()
 
 funds = 10000
 playerprice = 4000
 
-a , b = 1200,673
+a,b = 1200,673
 background_colour = (90, 200, 60)
 clock = pygame.time.Clock()
 main_font = pygame.font.Font(None, 50)
