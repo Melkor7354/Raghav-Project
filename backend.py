@@ -41,10 +41,8 @@ def initialize():
         midfielders = []
         gk = []
         for player in player_base:
-            # image = convert_images_to_binary(user_path+'\\cards\\{}.png'.format(player[0]))
-            image = 'a'
+            image = user_path+'\\cards\\{}.jpeg'.format(player[0])
             a = Player(player[0], player[1], player[2], image)
-            print(a)
             a.save()
             players.append(a)
             if a.position == 'GK':
@@ -76,6 +74,7 @@ class Player:
         self.position = position
         self.ovr = ovr
         self.image = image
+        self.price = self.ovr*6*9
 
     def player_info(self):
         return [self.name, self.position, self.ovr, self.image]
@@ -127,9 +126,21 @@ def read_squad():
         squad = pickle.load(file)
         players = []
         for i in squad:
-            players.append((i.name, i.position, i.ovr))
-        print(players)
+            players.append((i.name, i.position, i.ovr, i.price, i.image))
+        return players
 
-
-initialize()
-read_squad()
+def random_player_image(player):
+    squad = read_squad()
+    not_in_squad = []
+    for player in player_base:
+        for starter in squad:
+            if player[0] != starter[0]:
+                not_in_squad += player
+            else:
+                pass
+    transfers = random.sample(not_in_squad, 2)
+    ret = []
+    for player in transfers:
+        ret.append(player)
+    return ret 
+        
