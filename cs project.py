@@ -5,7 +5,8 @@ from backend import *
 name_of_squad = backend.squad_name()
 backend.initialize()
 squad = backend.read_squad()
-print(squad, name_of_squad)
+print(name_of_squad)
+player_base = backend.player_base
 
 pygame.init()
 

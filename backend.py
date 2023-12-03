@@ -151,10 +151,14 @@ def squad_name():
         window = tk.Tk()
         window.geometry('200x200')
         entry = tk.Entry(window)
-        submit = tk.Button(window, text='SUBMIT', command=window.destroy)
+        name = ''
+        def get_name():
+            global name
+            name = entry.get()
+            window.destroy()
+        submit = tk.Button(window, text='SUBMIT', command=get_name)
         entry.pack()
         submit.pack()
-        name = entry.get()
         window.mainloop()
         return name
         
