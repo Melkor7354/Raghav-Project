@@ -153,7 +153,7 @@ def squad_name():
         entry = tk.Entry(window)
         name = ''
         def get_name():
-            global name
+            nonlocal name
             name = entry.get()
             window.destroy()
         submit = tk.Button(window, text='SUBMIT', command=get_name)
