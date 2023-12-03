@@ -1,10 +1,15 @@
 import pygame,sys,random
 import backend
-
+import tkinter as tk
 from backend import *
+name_of_squad = backend.squad_name()
 backend.initialize()
 squad = backend.read_squad()
+print(squad, name_of_squad)
+
 pygame.init()
+
+
 
 
 funds = 10000

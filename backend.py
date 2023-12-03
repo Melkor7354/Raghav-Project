@@ -1,7 +1,7 @@
 import pickle
 import os
 import random
-
+import tkinter as tk
 player_base = [['LIONEL MESSI', 'RW', 90], ['CRISTIANO RONALDO', 'ST', 86],
                ['TONI KROOS', 'CM', 86], ['GARNACHO', 'LW', 75], ['HARRY KANE', 'ST', 90],
                ['SON', 'LW', 87], ['COLE PALMER', 'CAM', 66], ['STERLING', 'LW', 83],
@@ -41,7 +41,7 @@ def initialize():
         midfielders = []
         gk = []
         for player in player_base:
-            image = user_path+'\\cards\\{}.jpeg'.format(player[0])
+            image = user_path+'\\cards\\{}.png'.format(player[0])
             a = Player(player[0], player[1], player[2], image)
             a.save()
             players.append(a)
@@ -126,7 +126,7 @@ def read_squad():
         squad = pickle.load(file)
         players = []
         for i in squad:
-            players.append((i.name, i.position, i.ovr, i.price, i.image))
+            players.append((i.name, i.position, i.ovr, i.ovr*6*9, i.image))
         return players
 
 def random_player_image(player):
@@ -142,5 +142,19 @@ def random_player_image(player):
     ret = []
     for player in transfers:
         ret.append(player)
-    return ret 
+    return ret
+
+def squad_name():
+    if os.path.exists(path_main):
+        pass
+    else:
+        window = tk.Tk()
+        window.geometry('200x200')
+        entry = tk.Entry(window)
+        submit = tk.Button(window, text='SUBMIT', command=window.destroy)
+        entry.pack()
+        submit.pack()
+        name = entry.get()
+        window.mainloop()
+        return name
         
