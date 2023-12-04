@@ -1,4 +1,6 @@
-import pygame, random
+import pygame
+import random
+
 import backend
 import tkinter as tk
 from backend import *
@@ -59,14 +61,14 @@ C=[c2,92,'MAHREZ','HOJLUND','RASHFORD','DIABY','CASEMIRO','RICE','BALDE','WESLEY
 screen.fill(background_colour)
 
 
-text_price1 = main_font.render(str(playerprice), True, (20,20,20))
-text_price2 = main_font.render(str(playerprice), True, (20,20,20))
+text_price1 = main_font.render(str(playerprice), True, (20, 20, 20))
+text_price2 = main_font.render(str(playerprice), True, (20, 20, 20))
 
 textRect1 = text_price1.get_rect()
 textRect2 = text_price2.get_rect()
 
-textRect1.center = (390,520)
-textRect2.center = (890,520)
+textRect1.center = (390, 520)
+textRect2.center = (890, 520)
 
 
 
@@ -87,39 +89,40 @@ class Button:
 
     def is_clicked(self, pos):
         return self.rect.collidepoint(pos)
-def man(x,a,b):
+def man(x, a, b):
     screen.blit(pygame.image.load(x),(a,b))
 
-def display_text(font,text,a,b):
+def display_text(font, text, a, b):
                 disp = font.render(text, False, (20, 20, 20))
                 textRecty = disp.get_rect()
-                textRecty.center = (a,b)
+                textRecty.center = (a, b)
                 screen.blit(disp, textRecty)
 
 running = True
 i = 0
 
 
-button = Button(a // 2 -110 , b // 2 + 200, 200, 50, (100, 190, 60), "PLAY")
+button = Button(a // 2 - 110, b // 2 + 200, 200, 50, (100, 190, 60), "PLAY")
 b1 = Button(a // 2 - 110, b // 2 + 100, 270, 50, (100, 60, 100), "TRANSFER MARKET")
 b2 = Button(a // 2 - 110, b // 2 - 100, 200, 50, (100, 60, 100), "FIXTURE")
 b3 = Button(a // 2 - 110, b // 2, 200, 50, (100, 60, 100), "YOUR SQUAD")
-buy1 = Button(350 , 570, 150, 50, (100, 190, 100), "BUY")
-buy2 = Button(850 , 570, 150, 50, (100, 190, 100), "BUY")
-ok1 = Button(475 , 350, 150, 50, (100, 190, 100), "CONFIRM")
-sim = Button(a // 2 -110 , b // 2 , 200, 50, (100, 190, 60), "PLAY")
+buy1 = Button(350, 570, 150, 50, (100, 190, 100), "BUY")
+buy2 = Button(850, 570, 150, 50, (100, 190, 100), "BUY")
+ok1 = Button(475, 350, 150, 50, (100, 190, 100), "CONFIRM")
+sim = Button(a // 2 - 110, b // 2, 200, 50, (100, 190, 60), "PLAY")
+next_match = Button(500, 350, 180, 50, (100, 190, 100), "NEXT MATCH")
 
 a1 = 0
-a2=0
-rand_int =0
-rand2=0
+a2 = 0
+rand_int = 0
+rand2 = 0
 y = 0
 r = 0
 t = 0
-#my club
+# my club
 
 
-#buy1 =
+# buy1 =
 while running:
 
 
@@ -129,6 +132,7 @@ while running:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 i -=1
+                y,r,t=0,0,0
         if event.type == pygame.QUIT:
             running = False
         
@@ -168,7 +172,7 @@ while running:
 
 
 
-    if i==0:
+    if i == 0:
         screen.blit(background,(0,0))
         text = main_font.render("""FOOTBALL UNLIMITED""", False, (200, 200, 200))
         textRect = text.get_rect()
@@ -177,7 +181,7 @@ while running:
         button.draw(screen)
 
 #
-    if i==1:
+    if i == 1:
        
         screen.blit(bg2,(0,0))
         for event in pygame.event.get():
@@ -207,8 +211,8 @@ while running:
         input_rect.w = max(100, text_surface.get_width() + 10)
 
 
-#this is for transfer market
-    if i==2:
+# this is for transfer market
+    if i == 2:
       
      
       
@@ -221,13 +225,13 @@ while running:
       b2.draw(screen)
       b3.draw(screen)
 
-    if i==3 and y==1:
+    if i == 3 and y == 1:
 
-        screen.blit( text_funds, textRect3 )
-        screen.blit(background,(0,0))
-        text_funds = main_font.render(str(funds), True, (20,20,20))
+        screen.blit(text_funds, textRect3)
+        screen.blit(background, (0, 0))
+        text_funds = main_font.render(str(funds), True, (20, 20, 20))
         textRect3 = text_funds.get_rect()
-        textRect3.center = (1100,100)
+        textRect3.center = (1100, 100)
         screen.blit(text_funds, textRect3)
         players = backend.random_player_image()
         
@@ -242,7 +246,7 @@ while running:
                buy2.draw(screen)
                screen.blit(text_price2, textRect2)
 
-    if i==3 and y==2:
+    if i == 3 and y == 2:
         
          screen.blit(text_funds, textRect3)
          screen.blit(ok,(190,100))
@@ -286,7 +290,11 @@ while running:
                         rand2 = random.randint(rand_int, 10)
 
 
+
+
         if a2 == 1:
+
+            print("working")
 
             text41 = main_font.render(str(rand_int), False, (200, 200, 200))
             textRect41 = text41.get_rect()
@@ -297,6 +305,8 @@ while running:
             textRect42 = text42.get_rect()
             textRect42.center = (850, 300)
             screen.blit(text42, textRect42)
+
+            next_match.draw(screen)
 
             if rand_int > rand2:
 
@@ -314,6 +324,14 @@ while running:
 
             if rand_int == rand2:
                 display_text(font_x, "you loss", 600, 425)
+
+            for event_next_match in pygame.event.get():
+               if event_next_match.type == pygame.MOUSEBUTTONDOWN:
+                 if next_match.is_clicked(pygame.mouse.get_pos()) and i == 3 and r == 1:
+                    # Code to switch to a new screen goes here
+                    a2 = 0
+
+
 
 
 
@@ -343,6 +361,12 @@ while running:
     """
 
     pygame.display.update()
-    clock.tick(30)
+    clock.tick(60)
+
+    '''
+    print(i)
+    print(r)
+    print(y)
+    '''
 
 
