@@ -1,0 +1,4 @@
+my_squad = [['ANTONY','RW',81],['ALEXANDER ISAK','ST',81],['WILFRIED ZAHA','LW',81],
+            ['HOUSSEM AOUAR','CM',76],['NICOLO BARELLA','RCM',86],['RYAN GRAVENBERCH','LCM',79],
+            ['DESTINY UDOGIE','LB',78],['CHRIS SMALLING','LCB',84],['SVEN BOTMAN','RCB',83],
+            ['MALO GUSTO','RB',76],['NICK POPE','GK',84]]

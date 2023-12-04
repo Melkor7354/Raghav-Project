@@ -1,18 +1,30 @@
 import pygame
 import random
+import sys
+import math
 
-player_base = [['LIONEL MESSI', 'RW', 90], ['CRISTIANO RONALDO', 'ST', 86],
-               ['TONI KROOS', 'CM', 86], ['GARNACHO', 'LW', 75], ['HARRY KANE', 'ST', 90],
-               ['SON', 'LW', 87], ['COLE PALMER', 'CAM', 66], ['STERLING', 'LW', 83],
-               ['ENZO', 'CM', 83], ['JAMAL MUSIALA', 'CAM', 86], ['JUDE BELLINGHAM', 'CM', 86],
-               ['JEREMY DOKU', 'RW', 77], ['MARCUS RASHFORD', 'LW', 85], ['SOFYAN AMRABAT', 'CM', 80],
-               ['RASMUS HOJLUND', 'ST', 76], ['PEDRI', 'CM', 86], ['PABLO GAVI', 'CB', 83],
-               ['WILLIAM SALIBA', 'CB', 83], ['DAYOT UPAMECANO', 'CB', 82], ['KEVIN DE BRUYNE', 'CAM', 91],
-               ['KARIM BENZEMA', 'ST', 90], ['JOSHUA KIMMICH', 'CDM', 88], ['JAN OBLAK', 'GK', 88],
-               ['ANDREAS CHRISTENSEN', 'CB', 83], ['ANDREAS PEREIRA', 'CAM', 77], ['KVARATSKHELIA', 'LW', 86],
-               ['BASTONI', 'CB', 85], ['REECE JAMES', 'RB', 84], ['FERLAND MENDY', 'LB', 82],
-               ['MIKE MAIGNAN', 'GK', 87], ['MBAPPE', 'ST', 91], ['FRED', 'CDM', 81],
-               ['MALACIA', 'LB', 78], ['RICO LEWIS', 'RB', 73]]
+player_base = [['LIONEL MESSI', 'F', 90], ['CRISTIANO RONALDO', 'F', 99],
+               ['TONI KROOS', 'M', 86], ['GARNACHO', 'F', 75], ['HARRY KANE', 'F', 90],
+               ['SON', 'F', 87], ['COLE PALMER', 'M', 66], ['STERLING', 'F', 83],
+               ['ENZO', 'M', 83], ['JAMAL MUSIALA', 'M', 86], ['JUDE BELLINGHAM', 'M', 86],
+               ['JEREMY DOKU', 'F', 77], ['MARCUS RASHFORD', 'F', 85], ['SOFYAN AMRABAT', 'M', 80],
+               ['RASMUS HOJLUND', 'F', 76], ['PEDRI', 'M', 86], ['PABLO GAVI', 'D', 83],
+               ['WILLIAM SALIBA', 'D', 83], ['DAYOT UPAMECANO', 'D', 82], ['KEVIN DE BRUYNE', 'M', 99],
+               ['KARIM BENZEMA', 'F', 90], ['JOSHUA KIMMICH', 'M', 88], ['JAN OBLAK', 'GK', 88],
+               ['ANDREAS CHRISTENSEN', 'D', 83], ['ANDREAS PEREIRA', 'M', 77], ['KVARATSKHELIA', 'F', 86],
+               ['BASTONI', 'D', 85], ['REECE JAMES', 'D', 84], ['FERLAND MENDY', 'D', 82],
+               ['MIKE MAIGNAN', 'G', 87], ['MBAPPE', 'F', 91], ['FRED', 'M', 81],
+               ['MALACIA', 'D', 78], ['RICO LEWIS', 'D', 73]]
+
+my_squad = [['ANTONY','F',81],['ALEXANDER ISAK','F',81],['WILFRIED ZAHA','F',81],
+            ['HOUSSEM AOUAR','M',76],['NICOLO BARELLA','M',86],['RYAN GRAVENBERCH','M',79],
+            ['DESTINY UDOGIE','LB',78],['CHRIS SMALLING','LCB',84],['SVEN BOTMAN','RCB',83],
+            ['MALO GUSTO','RB',76],['NICK POPE','GK',84]]
+
+
+clubs = [['MANCHESTER UNITED',82],['REAL MADRID',85],['FC BARCELONA',84],
+         ['ARSENAL',83],['INTER MILAN',82],['BORUSSIA DORTMUND',81],['TOTTENHAM HOTSPUR',81],
+         ['JUVENTUS',80],['AC MILAN',81],['CHELSEA',80]]
 
 for i in player_base:
     i.append(i[2]*100)
@@ -68,6 +80,8 @@ i4bg = pygame.image.load("stadium-football-background-at-night-free-vector.jpg")
 c_main = pygame.image.load("cabj.jpg")
 c1 = pygame.image.load("roma.jpg")
 c2 = pygame.image.load("wolfsburg.jpg")
+squadbg = pygame.image.load("squad.png")
+no_money = pygame.image.load("no money.jpg")
 
 #clubs for simulator
 A=[c_main,87,'MESSI','HAALAND','VINICIUS JR','HAIDARA','MCTOMINAY','BRUNO','SHAW','MAGUIRE','RAMOS','WALKER','DE GEA'] #my club
@@ -76,6 +90,22 @@ C=[c2,92,'MAHREZ','HOJLUND','RASHFORD','DIABY','CASEMIRO','RICE','BALDE','WESLEY
 
 
 screen.fill(background_colour)
+
+
+# Button parameters
+button_radius = 20
+button_pos_LW = (250,150)
+button_pos_ST = (250,350)
+button_pos_RW = (250,500)
+button_pos_LM = (600,150)
+button_pos_CM = (600,350)
+button_pos_RM = (600,500)
+button_pos_LB = (900,100)
+button_pos_LCB = (900,100 + 500/3)
+button_pos_RCB = (900,100 + 1000/3)
+button_pos_RB = (900,600)
+button_pos_GK = (1100,100+500/2)
+
 
 
 
@@ -117,6 +147,7 @@ b3 = Button(a // 2 - 110, b // 2, 200, 50, (100, 60, 100), "YOUR SQUAD")
 buy1 = Button(350, 570, 150, 50, (100, 190, 100), "BUY")
 buy2 = Button(850, 570, 150, 50, (100, 190, 100), "BUY")
 ok1 = Button(475, 350, 150, 50, (100, 190, 100), "CONFIRM")
+ok2 = Button(475, 350, 150, 50, (100, 190, 100), "CONFIRM")
 sim = Button(a // 2 - 110, b // 2, 200, 50, (100, 190, 60), "PLAY")
 next_match = Button(500, 350, 180, 50, (100, 190, 100), "NEXT MATCH")
 
@@ -149,6 +180,18 @@ while running:
 
         if event.type == pygame.MOUSEBUTTONDOWN:
 
+            mouse_x, mouse_y = pygame.mouse.get_pos()
+            distance = math.sqrt((button_pos_LW[0] - mouse_x) ** 2 + (button_pos_LW[1] - mouse_y) ** 2)
+            if distance <= button_radius:
+                 for i in my_squad:
+                     
+
+
+
+
+
+
+
             if button.is_clicked(pygame.mouse.get_pos()) and i==0:
                 # Code to switch to a new screen goes here
                 i = 1
@@ -176,8 +219,16 @@ while running:
                 funds = funds - players[1][3]
                 y =2
                 a1 = -1
+            if buy1.is_clicked(pygame.mouse.get_pos()) and i==2 and y ==1 and players[0][3] > funds:
+                y = 3
+            if buy2.is_clicked(pygame.mouse.get_pos()) and i==2 and y==1 and players[1][3] > funds:
+                y=3
 
             if ok1.is_clicked(pygame.mouse.get_pos()) and i == 2 and  y ==2:
+
+                y = 1
+
+            if ok2.is_clicked(pygame.mouse.get_pos()) and i == 2 and  y ==3:
 
                 y = 1
 
@@ -197,9 +248,11 @@ while running:
                     if A[1] >= B[1]:
                         rand2 = random.randint(0, rand_int)
                         if A[1]>B[1]:
-                         funds = funds + 100
+                         funds = funds + 65
                     else:
                         rand2 = random.randint(rand_int, 10)
+
+
 
 
 
@@ -258,6 +311,21 @@ while running:
       b2.draw(screen)
       b3.draw(screen)
 
+    if i == 2 and t == 1:
+        screen.blit(squadbg,(0,0))
+        pygame.draw.circle(screen, (70,70,190), button_pos_LW, button_radius)
+        pygame.draw.circle(screen, (70, 70, 190), button_pos_ST, button_radius)
+        pygame.draw.circle(screen, (70, 70, 190), button_pos_RW, button_radius)
+        pygame.draw.circle(screen, (70, 70, 190), button_pos_LM, button_radius)
+        pygame.draw.circle(screen, (70, 70, 190), button_pos_CM, button_radius)
+        pygame.draw.circle(screen, (70, 70, 190), button_pos_RM, button_radius)
+        pygame.draw.circle(screen, (70, 70, 190), button_pos_LB, button_radius)
+        pygame.draw.circle(screen, (70, 70, 190), button_pos_LCB, button_radius)
+        pygame.draw.circle(screen, (70, 70, 190), button_pos_RCB, button_radius)
+        pygame.draw.circle(screen, (70, 70, 190), button_pos_RB, button_radius)
+        pygame.draw.circle(screen, (70, 70, 190), button_pos_GK, button_radius)
+
+
 
     if i == 2:
         if y == 1:
@@ -284,14 +352,17 @@ while running:
 
         if  y == 2:
         
-            screen.blit(text_funds, textRect3)
+
             screen.blit(ok,(190,100))
-            text_funds = main_font.render(str(funds), True, (20,20,20))
-            textRect3 = text_funds.get_rect()
-            textRect3.center = (1100,100)
+
             ok1.draw(screen)
 
-# this is for match simulator
+        if y == 3:
+            screen.blit( no_money , (190, 100))
+
+            ok2.draw(screen)
+
+    # this is for match simulator
     if i == 2 and r == 1:
         
      
