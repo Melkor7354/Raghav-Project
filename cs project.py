@@ -16,9 +16,9 @@ player_base = [['LIONEL MESSI', 'F', 90], ['CRISTIANO RONALDO', 'F', 99],
                ['MIKE MAIGNAN', 'G', 87], ['MBAPPE', 'F', 91], ['FRED', 'M', 81],
                ['MALACIA', 'D', 78], ['RICO LEWIS', 'D', 73]]
 
-my_squad = [['ANTONY','F',81],['ALEXANDER ISAK','F',81],['WILFRIED ZAHA','F',81],
-            ['HOUSSEM AOUAR','M',76],['NICOLO BARELLA','M',86],['RYAN GRAVENBERCH','M',79],
-            ['DESTINY UDOGIE','LB',78],['CHRIS SMALLING','LCB',84],['SVEN BOTMAN','RCB',83],
+my_squad = [['ANTONY','RW',81],['ALEXANDER ISAK','ST',81],['WILFRIED ZAHA','LW',81],
+            ['HOUSSEM AOUAR','RM',76],['NICOLO BARELLA','CM',80],['RYAN GRAVENBERCH','LM',79],
+            ['DESTINY UDOGIE','LB',77],['CHRIS SMALLING','LCB',84],['SVEN BOTMAN','RCB',83],
             ['MALO GUSTO','RB',76],['NICK POPE','GK',84]]
 
 
@@ -29,6 +29,10 @@ clubs = [['MANCHESTER UNITED',82],['REAL MADRID',85],['FC BARCELONA',84],
 for i in player_base:
     i.append(i[2]*100)
     i.append(i[0]+".png")
+
+for j in my_squad:
+    j.append(j[2]*100)
+    j.append(j[0]+".png")
 #print(player_base)
 duplicate_base = player_base
 def player_transfer():
@@ -148,6 +152,7 @@ buy1 = Button(350, 570, 150, 50, (100, 190, 100), "BUY")
 buy2 = Button(850, 570, 150, 50, (100, 190, 100), "BUY")
 ok1 = Button(475, 350, 150, 50, (100, 190, 100), "CONFIRM")
 ok2 = Button(475, 350, 150, 50, (100, 190, 100), "CONFIRM")
+ok_back = Button(550, 520, 150, 50, (100, 190, 100), "back")
 sim = Button(a // 2 - 110, b // 2, 200, 50, (100, 190, 60), "PLAY")
 next_match = Button(500, 350, 180, 50, (100, 190, 100), "NEXT MATCH")
 
@@ -160,6 +165,7 @@ rand2 = 0
 y = 0
 r = 0
 t = 0
+dot =[]
 # my club
 
 
@@ -181,14 +187,95 @@ while running:
         if event.type == pygame.MOUSEBUTTONDOWN:
 
             mouse_x, mouse_y = pygame.mouse.get_pos()
-            distance = math.sqrt((button_pos_LW[0] - mouse_x) ** 2 + (button_pos_LW[1] - mouse_y) ** 2)
-            if distance <= button_radius:
-                 for i in my_squad:
-                     
+            d1 = math.sqrt((button_pos_LW[0] - mouse_x) ** 2 + (button_pos_LW[1] - mouse_y) ** 2)
+            if d1 <= button_radius:
+
+                for ig in my_squad:
+                    if ig[1]=="LW":
+                        dot = ig
+                        t = 2
+
+            d2 = math.sqrt((button_pos_ST[0] - mouse_x) ** 2 + (button_pos_ST[1] - mouse_y) ** 2)
+            if d2 <= button_radius:
+
+                for ig in my_squad:
+                    if ig[1] == "ST":
+                        dot = ig
+                        t = 2
+
+            d3 = math.sqrt((button_pos_RW[0] - mouse_x) ** 2 + (button_pos_RW[1] - mouse_y) ** 2)
+            if d3 <= button_radius:
+
+                for ig in my_squad:
+                    if ig[1] == "RW":
+                        dot = ig
+                        t = 2
+            d4 = math.sqrt((button_pos_LM[0] - mouse_x) ** 2 + (button_pos_LM[1] - mouse_y) ** 2)
+            if d4 <= button_radius:
+
+                for ig in my_squad:
+                    if ig[1] == "LM":
+                        dot = ig
+                        t = 2
+            d6 = math.sqrt((button_pos_CM[0] - mouse_x) ** 2 + (button_pos_CM[1] - mouse_y) ** 2)
+            if d6 <= button_radius:
+
+                for ig in my_squad:
+                    if ig[1] == "CM":
+                        dot = ig
+                        t = 2
+            d7 = math.sqrt((button_pos_RM[0] - mouse_x) ** 2 + (button_pos_RM[1] - mouse_y) ** 2)
+            if d7 <= button_radius:
+
+                for ig in my_squad:
+                    if ig[1] == "RM":
+                        dot = ig
+                        t = 2
+            d5 = math.sqrt((button_pos_GK[0] - mouse_x) ** 2 + (button_pos_GK[1] - mouse_y) ** 2)
+            if d5 <= button_radius:
+
+                for ig in my_squad:
+                    if ig[1] == "GK":
+                        dot = ig
+                        t = 2
+            d8 = math.sqrt((button_pos_LB[0] - mouse_x) ** 2 + (button_pos_LB[1] - mouse_y) ** 2)
+            if d8 <= button_radius:
+
+                for ig in my_squad:
+                    if ig[1] == "LB":
+                        dot = ig
+                        t = 2
+
+            d9 = math.sqrt((button_pos_LCB[0] - mouse_x) ** 2 + (button_pos_LCB[1] - mouse_y) ** 2)
+            if d1 <= button_radius:
+
+                for ig in my_squad:
+                    if ig[1] == "LCB":
+                        dot = ig
+                        t = 2
+            d10 = math.sqrt((button_pos_RCB[0] - mouse_x) ** 2 + (button_pos_RCB[1] - mouse_y) ** 2)
+            if d10 <= button_radius:
+
+                for ig in my_squad:
+                    if ig[1] == "RCB":
+                        dot = ig
+                        t = 2
+            d11 = math.sqrt((button_pos_RB[0] - mouse_x) ** 2 + (button_pos_RB[1] - mouse_y) ** 2)
+            if d11 <= button_radius:
+
+                for ig in my_squad:
+                    if ig[1] == "RB":
+                        dot = ig
+                        t = 2
 
 
 
 
+
+
+            if ok_back.is_clicked(pygame.mouse.get_pos()) and i==2 and t==2:
+                # Code to switch to a new screen goes here
+                t = 1
 
 
 
@@ -311,19 +398,24 @@ while running:
       b2.draw(screen)
       b3.draw(screen)
 
-    if i == 2 and t == 1:
-        screen.blit(squadbg,(0,0))
-        pygame.draw.circle(screen, (70,70,190), button_pos_LW, button_radius)
-        pygame.draw.circle(screen, (70, 70, 190), button_pos_ST, button_radius)
-        pygame.draw.circle(screen, (70, 70, 190), button_pos_RW, button_radius)
-        pygame.draw.circle(screen, (70, 70, 190), button_pos_LM, button_radius)
-        pygame.draw.circle(screen, (70, 70, 190), button_pos_CM, button_radius)
-        pygame.draw.circle(screen, (70, 70, 190), button_pos_RM, button_radius)
-        pygame.draw.circle(screen, (70, 70, 190), button_pos_LB, button_radius)
-        pygame.draw.circle(screen, (70, 70, 190), button_pos_LCB, button_radius)
-        pygame.draw.circle(screen, (70, 70, 190), button_pos_RCB, button_radius)
-        pygame.draw.circle(screen, (70, 70, 190), button_pos_RB, button_radius)
-        pygame.draw.circle(screen, (70, 70, 190), button_pos_GK, button_radius)
+    if i == 2 :
+        if t == 1:
+            screen.blit(squadbg,(0,0))
+            pygame.draw.circle(screen, (70,70,190), button_pos_LW, button_radius)
+            pygame.draw.circle(screen, (70, 70, 190), button_pos_ST, button_radius)
+            pygame.draw.circle(screen, (70, 70, 190), button_pos_RW, button_radius)
+            pygame.draw.circle(screen, (70, 70, 190), button_pos_LM, button_radius)
+            pygame.draw.circle(screen, (70, 70, 190), button_pos_CM, button_radius)
+            pygame.draw.circle(screen, (70, 70, 190), button_pos_RM, button_radius)
+            pygame.draw.circle(screen, (70, 70, 190), button_pos_LB, button_radius)
+            pygame.draw.circle(screen, (70, 70, 190), button_pos_LCB, button_radius)
+            pygame.draw.circle(screen, (70, 70, 190), button_pos_RCB, button_radius)
+            pygame.draw.circle(screen, (70, 70, 190), button_pos_RB, button_radius)
+            pygame.draw.circle(screen, (70, 70, 190), button_pos_GK, button_radius)
+        if t == 2:
+            man(dot[4], 500, 150)
+            ok_back.draw(screen)
+
 
 
 
