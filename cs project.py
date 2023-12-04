@@ -1,4 +1,4 @@
-import pygame,sys,random
+import pygame, random
 import backend
 import tkinter as tk
 from backend import *
@@ -20,7 +20,7 @@ a , b = 1200,673
 background_colour = (90, 200, 60)
 clock = pygame.time.Clock()
 main_font = pygame.font.Font(None, 50)
-
+font_x = pygame.font.Font(None, 90)
 
 base_font = pygame.font.Font(None, 32)
 
@@ -64,6 +64,7 @@ text_price2 = main_font.render(str(playerprice), True, (20,20,20))
 
 textRect1 = text_price1.get_rect()
 textRect2 = text_price2.get_rect()
+
 textRect1.center = (390,520)
 textRect2.center = (890,520)
 
@@ -88,11 +89,13 @@ class Button:
         return self.rect.collidepoint(pos)
 def man(x,a,b):
     screen.blit(pygame.image.load(x),(a,b))
-    
-def back(o):
-    if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    o = o-1 
+
+def display_text(font,text,a,b):
+                disp = font.render(text, False, (20, 20, 20))
+                textRecty = disp.get_rect()
+                textRecty.center = (a,b)
+                screen.blit(disp, textRecty)
+
 running = True
 i = 0
 
@@ -123,12 +126,15 @@ while running:
     for event in pygame.event.get():
 
         # Check for QUIT event
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
+                i -=1
         if event.type == pygame.QUIT:
             running = False
         
 
         if event.type == pygame.MOUSEBUTTONDOWN:
-            back(i)
+
             if button.is_clicked(pygame.mouse.get_pos()) and i==0:
                 # Code to switch to a new screen goes here
                 i = 1
@@ -158,15 +164,8 @@ while running:
             if ok1.is_clicked(pygame.mouse.get_pos()) and i == 3 and  y ==2:
                 y = 1
 
-            if sim.is_clicked(pygame.mouse.get_pos()) and i==3  and r ==1:
-                # Code to switch to a new screen goes here
-                rand_int = random.randint(0, 10)
-                if A[1] >= B[1]:
-                    rand2 = random.randint(0, rand_int)
-                    funds = funds + 100
-                else:
-                    rand2 = random.randint(rand_int, 10)
-                a2 = 1
+
+
 
 
     if i==0:
@@ -223,8 +222,8 @@ while running:
       b3.draw(screen)
 
     if i==3 and y==1:
-        back(i)
-        screen.blit(text_funds, textRect3)
+
+        screen.blit( text_funds, textRect3 )
         screen.blit(background,(0,0))
         text_funds = main_font.render(str(funds), True, (20,20,20))
         textRect3 = text_funds.get_rect()
@@ -232,12 +231,12 @@ while running:
         screen.blit(text_funds, textRect3)
         players = backend.random_player_image()
         
-        if a1<=0:
+        if a1 <= 0:
           man(players[0][4],300,200)
           screen.blit(text_price1, textRect1)
           buy1.draw(screen)
 
-        if a1>=0:
+        if a1 >= 0:
 
                man(players[1][4],800,200)
                buy2.draw(screen)
@@ -252,8 +251,8 @@ while running:
          textRect3.center = (1100,100)
          ok1.draw(screen)
 
-#this is for match simulator
-    if i==3 and r==1:
+# this is for match simulator
+    if i == 3 and r == 1:
         
      
         screen.blit(i4bg,(0,0))
@@ -261,23 +260,63 @@ while running:
         textRect3 = text_funds.get_rect()
         textRect3.center = (1100,100)
         screen.blit(text_funds, textRect3)
+
         screen.blit(A[0],(300,100))
         screen.blit(B[0],(800,100))
+
         text4 = main_font.render("""V/S""", False, (200, 200, 200))
         textRect4 = text4.get_rect()
         textRect4.center = (a // 2, b // 2 - 200)
         screen.blit(text4,textRect4)
-        if a2==0:
+
+        if a2 == 0:
+
             sim.draw(screen)
-        if a2==1:
+
+            for event2 in pygame.event.get():
+               if event2.type == pygame.MOUSEBUTTONDOWN:
+                 if sim.is_clicked(pygame.mouse.get_pos()) and i == 3 and r == 1:
+                    # Code to switch to a new screen goes here
+                    a2 = 1
+                    rand_int = random.randint(0, 10)
+                    if A[1] >= B[1]:
+                        rand2 = random.randint(0, rand_int)
+                        funds = funds + 100
+                    else:
+                        rand2 = random.randint(rand_int, 10)
+
+
+        if a2 == 1:
+
             text41 = main_font.render(str(rand_int), False, (200, 200, 200))
             textRect41 = text41.get_rect()
             textRect41.center = (350, 300)
             screen.blit(text41, textRect41)
+
             text42 = main_font.render(str(rand2), False, (200, 200, 200))
             textRect42 = text42.get_rect()
             textRect42.center = (850, 300)
             screen.blit(text42, textRect42)
+
+            if rand_int > rand2:
+
+                text43 = font_x.render("you win", False, (20, 20, 20))
+                textRect43 = text43.get_rect()
+                textRect43.center = (600, 425)
+                screen.blit(text43, textRect43)
+
+            if rand_int == rand2:
+
+                text44 = font_x.render("DRAW", False, (20, 20, 20))
+                textRect44 = text44.get_rect()
+                textRect44.center = (600, 425)
+                screen.blit(text44, textRect44)
+
+            if rand_int == rand2:
+                display_text(font_x, "you loss", 600, 425)
+
+
+
 
 
 
