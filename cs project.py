@@ -1,15 +1,39 @@
 import pygame
 import random
-from backend2 import *
-base = backend2.player_base
 
+player_base = [['LIONEL MESSI', 'RW', 90], ['CRISTIANO RONALDO', 'ST', 86],
+               ['TONI KROOS', 'CM', 86], ['GARNACHO', 'LW', 75], ['HARRY KANE', 'ST', 90],
+               ['SON', 'LW', 87], ['COLE PALMER', 'CAM', 66], ['STERLING', 'LW', 83],
+               ['ENZO', 'CM', 83], ['JAMAL MUSIALA', 'CAM', 86], ['JUDE BELLINGHAM', 'CM', 86],
+               ['JEREMY DOKU', 'RW', 77], ['MARCUS RASHFORD', 'LW', 85], ['SOFYAN AMRABAT', 'CM', 80],
+               ['RASMUS HOJLUND', 'ST', 76], ['PEDRI', 'CM', 86], ['PABLO GAVI', 'CB', 83],
+               ['WILLIAM SALIBA', 'CB', 83], ['DAYOT UPAMECANO', 'CB', 82], ['KEVIN DE BRUYNE', 'CAM', 91],
+               ['KARIM BENZEMA', 'ST', 90], ['JOSHUA KIMMICH', 'CDM', 88], ['JAN OBLAK', 'GK', 88],
+               ['ANDREAS CHRISTENSEN', 'CB', 83], ['ANDREAS PEREIRA', 'CAM', 77], ['KVARATSKHELIA', 'LW', 86],
+               ['BASTONI', 'CB', 85], ['REECE JAMES', 'RB', 84], ['FERLAND MENDY', 'LB', 82],
+               ['MIKE MAIGNAN', 'GK', 87], ['MBAPPE', 'ST', 91], ['FRED', 'CDM', 81],
+               ['MALACIA', 'LB', 78], ['RICO LEWIS', 'RB', 73]]
+
+for i in player_base:
+    i.append(i[2]*100)
+    i.append(i[0]+".png")
+#print(player_base)
+duplicate_base = player_base
+def player_transfer():
+    transfers = random.sample(duplicate_base, 2)
+    ret = []
+    for player in transfers:
+        ret.append(player)
+    return ret
+
+print(player_transfer())
 
 
 pygame.init()
 
 
 funds = 10000
-playerprice = 4000
+
 
 a , b = 1200,673
 background_colour = (90, 200, 60)
@@ -37,7 +61,7 @@ bg2 = pygame.image.load("Soccer_pitch_dimensions.png")
 bg3 = pygame.image.load("pngtree-background-with-a-football-or-soccer-ball-on-grass-with-spotlight-picture-image_2032894.jpg")
 
 
-bg4 = pygame.image.load("market1.jpg")
+bg4 = pygame.image.load("transfermarket.png")
 pygame.display.set_caption('football unlimited')
 ok = pygame.image.load("WhatsApp Image 2023-11-30 at 1.16.35 AM.jpeg")
 i4bg = pygame.image.load("stadium-football-background-at-night-free-vector.jpg")
@@ -52,16 +76,6 @@ C=[c2,92,'MAHREZ','HOJLUND','RASHFORD','DIABY','CASEMIRO','RICE','BALDE','WESLEY
 
 
 screen.fill(background_colour)
-
-
-text_price1 = main_font.render(str(playerprice), True, (20, 20, 20))
-text_price2 = main_font.render(str(playerprice), True, (20, 20, 20))
-
-textRect1 = text_price1.get_rect()
-textRect2 = text_price2.get_rect()
-
-textRect1.center = (390, 520)
-textRect2.center = (890, 520)
 
 
 
@@ -85,8 +99,8 @@ class Button:
 def man(x, a, b):
     screen.blit(pygame.image.load(x),(a,b))
 
-def display_text(font, text, a, b):
-                disp = font.render(text, False, (100, 100, 100))
+def display_text(font, text, a, b, R, G, B):
+                disp = font.render(text, False, (R, G, B))
                 textRecty = disp.get_rect()
                 textRecty.center = (a, b)
                 screen.blit(disp, textRecty)
@@ -95,7 +109,7 @@ def display_text(font, text, a, b):
 running = True
 i = 0
 
-
+# the buttons
 button = Button(a // 2 - 110, b // 2 + 200, 200, 50, (100, 190, 60), "PLAY")
 b1 = Button(a // 2 - 110, b // 2 + 100, 270, 50, (100, 60, 100), "TRANSFER MARKET")
 b2 = Button(a // 2 - 110, b // 2 - 100, 200, 50, (100, 60, 100), "FIXTURE")
@@ -105,6 +119,8 @@ buy2 = Button(850, 570, 150, 50, (100, 190, 100), "BUY")
 ok1 = Button(475, 350, 150, 50, (100, 190, 100), "CONFIRM")
 sim = Button(a // 2 - 110, b // 2, 200, 50, (100, 190, 60), "PLAY")
 next_match = Button(500, 350, 180, 50, (100, 190, 100), "NEXT MATCH")
+
+# variables to
 
 a1 = 0
 a2 = 0
@@ -146,16 +162,18 @@ while running:
                 i=2
             if b1.is_clicked(pygame.mouse.get_pos()) and i==1:
                 # Code to switch to a new screen goes here
+                players = player_transfer()
+                a1=0
                 y =1
                 i=2
-            if buy1.is_clicked(pygame.mouse.get_pos()) and i==2 and y ==1 and playerprice <= funds:
-                funds = funds - playerprice
+            if buy1.is_clicked(pygame.mouse.get_pos()) and i==2 and y ==1 and players[0][3] <= funds:
+                funds = funds - players[0][3]
                 i =2
                 y=2
                 a1 =1
 
-            if buy2.is_clicked(pygame.mouse.get_pos()) and i==2 and y==1 and playerprice <= funds:
-                funds = funds - playerprice
+            if buy2.is_clicked(pygame.mouse.get_pos()) and i==2 and y==1 and players[1][3] <= funds:
+                funds = funds - players[1][3]
                 y =2
                 a1 = -1
 
@@ -244,25 +262,25 @@ while running:
     if i == 2:
         if y == 1:
 
-            screen.blit(background, (0, 0))
+            screen.blit(bg4, (0, 0))
 
             text_funds = main_font.render(str(funds), True, (20, 20, 20))
             textRect3 = text_funds.get_rect()
             textRect3.center = (1100, 100)
             screen.blit(text_funds, textRect3)
 
-            players = backend.random_player_image()
+
         
             if a1 <= 0:
                  man(players[0][4],300,200)
-                 screen.blit(text_price1, textRect1)
+                 display_text(main_font, str(players[0][3]), 390, 520,20,20,20)
                  buy1.draw(screen)
 
             if a1 >= 0:
 
                  man(players[1][4],800,200)
                  buy2.draw(screen)
-                 screen.blit(text_price2, textRect2)
+                 display_text(main_font, str(players[1][3]), 890, 520,20,20,20)
 
         if  y == 2:
         
@@ -331,13 +349,7 @@ while running:
                 screen.blit(text44, textRect44)
 
             if rand_int < rand2:
-                display_text(font_x, "you loss", 600, 455)
-
-
-
-
-
-
+                display_text(font_x, "you loss", 600, 455,100,100,100)
 
 
 
