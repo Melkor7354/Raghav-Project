@@ -1,18 +1,11 @@
 import pygame
 import random
+from backend2 import *
+base = backend2.player_base
 
-import backend
-import tkinter as tk
-from backend import *
-name_of_squad = backend.squad_name()
-backend.initialize()
-squad = backend.read_squad()
-print(name_of_squad)
-player_base = backend.player_base
+
 
 pygame.init()
-
-
 
 
 funds = 10000
@@ -97,6 +90,7 @@ def display_text(font, text, a, b):
                 textRecty = disp.get_rect()
                 textRecty.center = (a, b)
                 screen.blit(disp, textRecty)
+
 
 running = True
 i = 0

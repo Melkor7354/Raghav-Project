@@ -129,7 +129,7 @@ def read_squad():
             players.append((i.name, i.position, i.ovr, i.ovr*6*9, i.image))
         return players
 
-def random_player_image(player):
+def random_player_image():
     squad = read_squad()
     not_in_squad = []
     for player in player_base:
