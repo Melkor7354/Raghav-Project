@@ -3,18 +3,19 @@ import random
 import sys
 import math
 
-player_base = [['LIONEL MESSI', 'F', 90], ['CRISTIANO RONALDO', 'F', 99],
-               ['TONI KROOS', 'M', 86], ['GARNACHO', 'F', 75], ['HARRY KANE', 'F', 90],
-               ['SON', 'F', 87], ['COLE PALMER', 'M', 66], ['STERLING', 'F', 83],
-               ['ENZO', 'M', 83], ['JAMAL MUSIALA', 'M', 86], ['JUDE BELLINGHAM', 'M', 86],
-               ['JEREMY DOKU', 'F', 77], ['MARCUS RASHFORD', 'F', 85], ['SOFYAN AMRABAT', 'M', 80],
-               ['RASMUS HOJLUND', 'F', 76], ['PEDRI', 'M', 86], ['PABLO GAVI', 'D', 83],
-               ['WILLIAM SALIBA', 'D', 83], ['DAYOT UPAMECANO', 'D', 82], ['KEVIN DE BRUYNE', 'M', 99],
-               ['KARIM BENZEMA', 'F', 90], ['JOSHUA KIMMICH', 'M', 88], ['JAN OBLAK', 'GK', 88],
-               ['ANDREAS CHRISTENSEN', 'D', 83], ['ANDREAS PEREIRA', 'M', 77], ['KVARATSKHELIA', 'F', 86],
-               ['BASTONI', 'D', 85], ['REECE JAMES', 'D', 84], ['FERLAND MENDY', 'D', 82],
-               ['MIKE MAIGNAN', 'G', 87], ['MBAPPE', 'F', 91], ['FRED', 'M', 81],
-               ['MALACIA', 'D', 78], ['RICO LEWIS', 'D', 73]]
+
+player_base = [['LIONEL MESSI', 'RW', 90], ['CRISTIANO RONALDO', 'ST', 99],
+               ['TONI KROOS', 'CM', 86], ['GARNACHO', 'LW', 75], ['HARRY KANE', 'ST', 90],
+               ['SON', 'LW', 87], ['COLE PALMER', 'CM', 66], ['STERLING', 'LW', 83],
+               ['ENZO', 'CM', 83], ['JAMAL MUSIALA', 'RM', 86], ['JUDE BELLINGHAM', 'CM', 86],
+               ['JEREMY DOKU', 'RW', 77], ['MARCUS RASHFORD', 'LW', 85], ['SOFYAN AMRABAT', 'RM', 80],
+               ['RASMUS HOJLUND', 'ST', 76], ['PEDRI', 'CM', 86], ['PABLO GAVI', 'LM', 83],
+               ['WILLIAM SALIBA', 'RCB', 83], ['DAYOT UPAMECANO', 'LCB', 82], ['KEVIN DE BRUYNE', 'CM', 99],
+               ['KARIM BENZEMA', 'ST', 90], ['JOSHUA KIMMICH', 'CM', 88], ['JAN OBLAK', 'GK', 88],
+               ['ANDREAS CHRISTENSEN', 'RCB', 83], ['ANDREAS PEREIRA', 'RM', 77], ['KVARATSKHELIA', 'LW', 86],
+               ['BASTONI', 'LCB', 85], ['REECE JAMES', 'RB', 84], ['FERLAND MENDY', 'LB', 82],
+               ['MIKE MAIGNAN', 'GK', 87], ['MBAPPE', 'ST', 91], ['FRED', 'RM', 81],
+               ['MALACIA', 'LB', 78], ['RICO LEWIS', 'LB', 73]]
 
 my_squad = [['ANTONY','RW',81],['ALEXANDER ISAK','ST',81],['WILFRIED ZAHA','LW',81],
             ['HOUSSEM AOUAR','RM',76],['NICOLO BARELLA','CM',80],['RYAN GRAVENBERCH','LM',79],
@@ -34,6 +35,8 @@ for j in my_squad:
     j.append(j[2]*100)
     j.append(j[0]+".png")
 #print(player_base)
+print(player_base)
+print(my_squad)
 duplicate_base = player_base
 def player_transfer():
     transfers = random.sample(duplicate_base, 2)
@@ -42,7 +45,7 @@ def player_transfer():
         ret.append(player)
     return ret
 
-print(player_transfer())
+
 
 
 pygame.init()
@@ -247,7 +250,7 @@ while running:
                         t = 2
 
             d9 = math.sqrt((button_pos_LCB[0] - mouse_x) ** 2 + (button_pos_LCB[1] - mouse_y) ** 2)
-            if d1 <= button_radius:
+            if d9 <= button_radius:
 
                 for ig in my_squad:
                     if ig[1] == "LCB":
@@ -293,23 +296,41 @@ while running:
             if b1.is_clicked(pygame.mouse.get_pos()) and i==1:
                 # Code to switch to a new screen goes here
                 players = player_transfer()
+                print(players)
                 a1=0
                 y =1
                 i=2
             if buy1.is_clicked(pygame.mouse.get_pos()) and i==2 and y ==1 and players[0][3] <= funds:
                 funds = funds - players[0][3]
-                i =2
                 y=2
                 a1 =1
+                for l in my_squad:
+                    if players[0][1] == l[1]:
+
+                        player_base.remove(players[0])
+                        player_base.append(l)
+                        my_squad.remove(l)
+                        my_squad.append(players[0])
 
             if buy2.is_clicked(pygame.mouse.get_pos()) and i==2 and y==1 and players[1][3] <= funds:
                 funds = funds - players[1][3]
                 y =2
                 a1 = -1
+                for l in my_squad:
+                    if players[1][1]==l[1]:
+
+                        player_base.remove(players[1])
+                        player_base.append(l)
+                        my_squad.remove(l)
+                        my_squad.append(players[1])
+                        print(my_squad)
             if buy1.is_clicked(pygame.mouse.get_pos()) and i==2 and y ==1 and players[0][3] > funds:
                 y = 3
+
+
             if buy2.is_clicked(pygame.mouse.get_pos()) and i==2 and y==1 and players[1][3] > funds:
                 y=3
+
 
             if ok1.is_clicked(pygame.mouse.get_pos()) and i == 2 and  y ==2:
 
