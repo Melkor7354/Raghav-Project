@@ -2,7 +2,8 @@ import pygame
 import random
 import sys
 import math
-import csv
+# import required module
+
 
 
 player_base = [['LIONEL MESSI', 'RW', 90], ['CRISTIANO RONALDO', 'ST', 99],
@@ -92,8 +93,7 @@ squadbg = pygame.image.load("squad.png")
 no_money = pygame.image.load("no money.jpg")
 
 # clubs for simulator
-A = [c_main, 80, 'MESSI', 'HAALAND', 'VINICIUS JR', 'HAIDARA', 'MCTOMINAY', 'BRUNO', 'SHAW', 'MAGUIRE', 'RAMOS',
-     'WALKER', 'DE GEA']  # my club
+A = [c_main, 80]
 B = [c1, 78, 'SALAH', 'KANE', 'SON', 'AMRABAT', 'BELLINGHAM', 'SAUL', 'PELLEGRINI', 'BAILLY', 'VARANE',
      'TRENT ALEXANDER ARNOLD', 'STEELE']
 C = [c2, 92, 'MAHREZ', 'HOJLUND', 'RASHFORD', 'DIABY', 'CASEMIRO', 'RICE', 'BALDE', 'WESLEY FOFANA', 'ALABA', 'DALOT',
@@ -115,7 +115,7 @@ button_pos_RCB = (900, 100 + 1000 / 3)
 button_pos_RB = (900, 600)
 button_pos_GK = (1100, 100 + 500 / 2)
 
-
+ovr =0
 class Button:
 
     def __init__(self, x, y, width, height, color, text):
@@ -177,13 +177,16 @@ dot = []
 # buy1 =
 while running:
 
+
     for event in pygame.event.get():
 
         # Check for QUIT event
         if event.type == pygame.KEYDOWN:
+
             if event.key == pygame.K_ESCAPE:
                 i -= 1
                 y, r, t = 0, 0, 0
+
         if event.type == pygame.QUIT:
             running = False
 
@@ -191,6 +194,7 @@ while running:
 
             mouse_x, mouse_y = pygame.mouse.get_pos()
             d1 = math.sqrt((button_pos_LW[0] - mouse_x) ** 2 + (button_pos_LW[1] - mouse_y) ** 2)
+
             if d1 <= button_radius:
 
                 for ig in my_squad:
@@ -199,6 +203,7 @@ while running:
                         t = 2
 
             d2 = math.sqrt((button_pos_ST[0] - mouse_x) ** 2 + (button_pos_ST[1] - mouse_y) ** 2)
+
             if d2 <= button_radius:
 
                 for ig in my_squad:
@@ -207,6 +212,7 @@ while running:
                         t = 2
 
             d3 = math.sqrt((button_pos_RW[0] - mouse_x) ** 2 + (button_pos_RW[1] - mouse_y) ** 2)
+
             if d3 <= button_radius:
 
                 for ig in my_squad:
@@ -214,6 +220,7 @@ while running:
                         dot = ig
                         t = 2
             d4 = math.sqrt((button_pos_LM[0] - mouse_x) ** 2 + (button_pos_LM[1] - mouse_y) ** 2)
+
             if d4 <= button_radius:
 
                 for ig in my_squad:
@@ -221,6 +228,7 @@ while running:
                         dot = ig
                         t = 2
             d6 = math.sqrt((button_pos_CM[0] - mouse_x) ** 2 + (button_pos_CM[1] - mouse_y) ** 2)
+
             if d6 <= button_radius:
 
                 for ig in my_squad:
@@ -228,6 +236,7 @@ while running:
                         dot = ig
                         t = 2
             d7 = math.sqrt((button_pos_RM[0] - mouse_x) ** 2 + (button_pos_RM[1] - mouse_y) ** 2)
+
             if d7 <= button_radius:
 
                 for ig in my_squad:
@@ -235,6 +244,7 @@ while running:
                         dot = ig
                         t = 2
             d5 = math.sqrt((button_pos_GK[0] - mouse_x) ** 2 + (button_pos_GK[1] - mouse_y) ** 2)
+
             if d5 <= button_radius:
 
                 for ig in my_squad:
@@ -242,6 +252,7 @@ while running:
                         dot = ig
                         t = 2
             d8 = math.sqrt((button_pos_LB[0] - mouse_x) ** 2 + (button_pos_LB[1] - mouse_y) ** 2)
+
             if d8 <= button_radius:
 
                 for ig in my_squad:
@@ -250,6 +261,7 @@ while running:
                         t = 2
 
             d9 = math.sqrt((button_pos_LCB[0] - mouse_x) ** 2 + (button_pos_LCB[1] - mouse_y) ** 2)
+
             if d9 <= button_radius:
 
                 for ig in my_squad:
@@ -257,6 +269,7 @@ while running:
                         dot = ig
                         t = 2
             d10 = math.sqrt((button_pos_RCB[0] - mouse_x) ** 2 + (button_pos_RCB[1] - mouse_y) ** 2)
+
             if d10 <= button_radius:
 
                 for ig in my_squad:
@@ -264,7 +277,9 @@ while running:
                         dot = ig
                         t = 2
             d11 = math.sqrt((button_pos_RB[0] - mouse_x) ** 2 + (button_pos_RB[1] - mouse_y) ** 2)
+
             if d11 <= button_radius:
+
 
                 for ig in my_squad:
                     if ig[1] == "RB":
@@ -295,10 +310,12 @@ while running:
                 a1 = 0
                 y = 1
                 i = 2
+
             if buy1.is_clicked(pygame.mouse.get_pos()) and i == 2 and y == 1 and players[0][3] <= funds:
                 funds = funds - players[0][3]
                 y = 2
                 a1 = 1
+
                 try :
 
                   for l in my_squad:
@@ -307,6 +324,7 @@ while running:
                         player_base.append(l)
                         my_squad.remove(l)
                         my_squad.append(players[0])
+
                 except ValueError:
                     pass
 
@@ -314,6 +332,7 @@ while running:
                 funds = funds - players[1][3]
                 y = 2
                 a1 = -1
+
                 try:
                     for l in my_squad:
 
@@ -325,6 +344,7 @@ while running:
                             player_base.append(l)
                             my_squad.remove(l)
                             my_squad.append(players[1])
+
                 except ValueError:
                     pass
 
@@ -351,17 +371,23 @@ while running:
                 # Code to switch to a new screen goes here
                 print("simulate is clicked")
                 B = random.choice(clubs)
+                for abc in my_squad:
+                    ovr =  ovr + abc[2]
+
+                ovr = ovr/11
                 print(B)
                 a2 = 1
                 rand_int = random.randint(0, 10)
                 if A[1] >= B[1]:
                     rand2 = random.randint(0, rand_int)
-                    if A[1] > B[1]:
-                        funds = funds + 65
+                    if rand_int > rand2:
+                        funds = funds + 150
+                        ovr = 0
                 else:
                     rand2 = random.randint(rand_int, 10)
 
     if i == 0:
+        
         screen.blit(background, (0, 0))
         text = main_font.render("""FOOTBALL UNLIMITED""", False, (200, 200, 200))
         textRect = text.get_rect()
