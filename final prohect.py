@@ -2,27 +2,34 @@ import pygame
 import random
 import sys
 import math
+
+import os
 # import required module
+import csv
 
+my_squad=[]
+player_base=[]
 
+file2=open("funds.text","r")
+file=open("squad.csv","r")
+file1=open("playerbase.csv","r")
 
-player_base = [['LIONEL MESSI', 'RW', 90], ['CRISTIANO RONALDO', 'ST', 99],
-               ['TONI KROOS', 'CM', 86], ['GARNACHO', 'LW', 75], ['HARRY KANE', 'ST', 90],
-               ['SON', 'LW', 87], ['COLE PALMER', 'CM', 66], ['STERLING', 'LW', 83],
-               ['ENZO', 'CM', 83], ['JAMAL MUSIALA', 'RM', 86], ['JUDE BELLINGHAM', 'CM', 86],
-               ['JEREMY DOKU', 'RW', 77], ['MARCUS RASHFORD', 'LW', 85], ['SOFYAN AMRABAT', 'RM', 80],
-               ['RASMUS HOJLUND', 'ST', 76], ['PEDRI', 'CM', 86], ['PABLO GAVI', 'LM', 83],
-               ['WILLIAM SALIBA', 'RCB', 83], ['DAYOT UPAMECANO', 'LCB', 82], ['KEVIN DE BRUYNE', 'CM', 99],
-               ['KARIM BENZEMA', 'ST', 90], ['JOSHUA KIMMICH', 'CM', 88], ['JAN OBLAK', 'GK', 88],
-               ['ANDREAS CHRISTENSEN', 'RCB', 83], ['ANDREAS PEREIRA', 'RM', 77], ['KVARATSKHELIA', 'LW', 86],
-               ['BASTONI', 'LCB', 85], ['REECE JAMES', 'RB', 84], ['FERLAND MENDY', 'LB', 82],
-               ['MIKE MAIGNAN', 'GK', 87], ['MBAPPE', 'ST', 91], ['FRED', 'RM', 81],
-               ['MALACIA', 'LB', 78], ['RICO LEWIS', 'LB', 73]]
+funds = int(file2.readline())
 
-my_squad = [['ANTONY', 'RW', 81], ['ALEXANDER ISAK', 'ST', 81], ['WILFRIED ZAHA', 'LW', 81],
-            ['HOUSSEM AOUAR', 'RM', 76], ['NICOLO BARELLA', 'CM', 80], ['RYAN GRAVENBERCH', 'LM', 79],
-            ['DESTINY UDOGIE', 'LB', 77], ['CHRIS SMALLING', 'LCB', 84], ['SVEN BOTMAN', 'RCB', 83],
-            ['MALO GUSTO', 'RB', 76], ['NICK POPE', 'GK', 84]]
+reader = csv.reader(file)
+for i in reader:
+    print(i)
+    i[2] = int(i[2])
+    my_squad.append(i)
+print(my_squad)
+reader1 = csv.reader(file1)
+for i in reader1:
+    i[2]=int(i[2])
+    player_base.append(i)
+print(player_base)
+file.close()
+file1.close()
+file2.close()
 
 clubs = [['MANCHESTER UNITED', 82], ['REAL MADRID', 85], ['FC BARCELONA', 84],
          ['ARSENAL', 83], ['INTER MILAN', 82], ["WOLFSBURG", 79], ['ROMA', 80]]
@@ -53,8 +60,6 @@ def player_transfer():
 
 
 pygame.init()
-
-funds = 10000
 
 a, b = 1200, 673
 background_colour = (90, 200, 60)
@@ -188,7 +193,31 @@ while running:
                 y, r, t = 0, 0, 0
 
         if event.type == pygame.QUIT:
-            running = False
+
+          with open("squad.csv","w",newline='') as file0:
+                writer=csv.writer(file0, delimiter=',')
+
+                for i in my_squad:
+                     acbd = i[0]
+                     cba = i[1]
+                     abc = str(i[2])
+                     appendlist=[acbd,cba,abc]
+                     writer.writerow(appendlist)
+
+          with open("playerbase.csv", "w", newline='') as file10:
+                writer1 = csv.writer(file10, delimiter=',')
+
+                for i in player_base:
+                    xyz = i[0]
+                    yxz = i[1]
+                    zxy = str(i[2])
+                    app = [xyz, yxz, zxy]
+                    writer1.writerow(app)
+
+          with open("funds.text", "w") as file20:
+              file20.write(str(funds))
+              print(funds)
+          running = False
 
         if event.type == pygame.MOUSEBUTTONDOWN:
 
@@ -313,17 +342,20 @@ while running:
 
             if buy1.is_clicked(pygame.mouse.get_pos()) and i == 2 and y == 1 and players[0][3] <= funds:
                 funds = funds - players[0][3]
+                print("helllo")
                 y = 2
                 a1 = 1
 
                 try :
 
-                  for l in my_squad:
-                    if players[0][1] == l[1]:
-                        player_base.remove(players[0])
-                        player_base.append(l)
-                        my_squad.remove(l)
-                        my_squad.append(players[0])
+                    for l in range(len(my_squad)):
+                        if players[0][1] == my_squad[l][1]:
+                            alpha=my_squad.pop(l)
+                            my_squad.append(players[0])
+                            for ilamda in range(len(player_base)):
+                                if players[0][0] == player_base[ilamda][0]:
+                                    player_base.pop(ilamda)
+                                    player_base.append(alpha)
 
                 except ValueError:
                     pass
@@ -334,16 +366,15 @@ while running:
                 a1 = -1
 
                 try:
-                    for l in my_squad:
 
-                        if players[1][1] == l[1]:
-                            print(my_squad)
-                            print(players[1])
-                            print(player_base)
-                            player_base.remove(players[1])
-                            player_base.append(l)
-                            my_squad.remove(l)
+                    for l in range(len(my_squad)):
+                        if players[1][1] == my_squad[l][1]:
+                            alpha = my_squad.pop(l)
                             my_squad.append(players[1])
+                            for ilamda in range(len(player_base)):
+                                if players[1][0] == player_base[ilamda][0]:
+                                    player_base.pop(ilamda)
+                                    player_base.append(alpha)
 
                 except ValueError:
                     pass
@@ -387,7 +418,7 @@ while running:
                     rand2 = random.randint(rand_int, 10)
 
     if i == 0:
-        
+
         screen.blit(background, (0, 0))
         text = main_font.render("""FOOTBALL UNLIMITED""", False, (200, 200, 200))
         textRect = text.get_rect()
@@ -567,8 +598,6 @@ while running:
     print(y)
     '''
 
-
-
-final_funds = funds
+print(funds)
 
 
